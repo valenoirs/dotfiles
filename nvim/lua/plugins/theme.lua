@@ -1,17 +1,17 @@
 -- make sure to set the priority to 1000 for it to load first
 return {
-	{
-		"olivercederborg/poimandres.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("poimandres").setup({})
-		end,
-
-		init = function()
-			vim.cmd("colorscheme poimandres")
-		end,
-	},
+	-- {
+	-- 	"olivercederborg/poimandres.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("poimandres").setup({})
+	-- 	end,
+	--
+	-- 	init = function()
+	-- 		vim.cmd("colorscheme poimandres")
+	-- 	end,
+	-- },
 	-- {
 	--     "dgox16/oldworld.nvim",
 	--     lazy = false,
@@ -43,4 +43,42 @@ return {
 	--         require("onedark").load()
 	--     end,
 	-- },
+	-- {
+	-- 	"ellisonleao/gruvbox.nvim",
+	-- 	priority = 1000,
+	-- 	config = true,
+	-- 	init = function()
+	-- 		vim.o.background = "light"
+	-- 		vim.cmd("colorscheme gruvbox")
+	-- 	end,
+	-- },
+	{
+		"nendix/zen.nvim",
+		lazy = false,
+		priority = 1000,
+		init = function()
+			require("zen").setup({
+				variant = "light", -- "dark", "light", or "auto" (follows vim.o.background)
+				undercurl = true,
+				transparent = true,
+				dimInactive = false,
+				terminalColors = true,
+				commentStyle = { italic = false },
+				functionStyle = {},
+				keywordStyle = { italic = false },
+				statementStyle = {},
+				typeStyle = {},
+				compile = false,
+				colors = {
+					palette = {}, -- override palette colors
+					theme = {}, -- override theme colors
+				},
+				overrides = function(colors)
+					return {}
+				end,
+			})
+
+			vim.cmd.colorscheme("zen")
+		end,
+	},
 }
