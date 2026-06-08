@@ -1,0 +1,169 @@
+# ==========================================
+# SUPER-LIGHTWEIGHT SWAY CONFIGURATION
+# ==========================================
+
+### --- VARIABLES ---
+set $mod Mod4
+set $term env WINIT_UNIX_BACKEND=wayland alacritty
+set $menu bemenu-run -p "Run: "
+set $walllock ~/wallhome.jpg
+set $wallhome ~/wallhome.jpg
+
+# Home row direction keys
+set $left h
+set $down j
+set $up k
+set $right l
+
+### --- INPUT CONFIGURATION ---
+# Find your identifier with: swaymsg -t get_inputs
+input "type:pointer" {
+    accel_profile "flat"
+    pointer_accel "0.5"
+}
+
+### --- OUTPUT CONFIGURATION ---
+# Set wallpaper (handled natively by swaybg in the background)
+output * bg $wallhome fill
+
+### --- EXECS & BACKGROUND SERVICES ---
+# Audio sink auto-switch
+exec_always pactl subscribe | grep --line-buffered "Event 'new' on sink" | while read; do pactl list short sinks | awk '/bluez_output/ {print $2}' | head -n1 | xargs -r pactl set-default-sink; done
+# Tell D-Bus and systemd we are running Sway (Fixes Waybar portal timeouts)
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+font pango:JetBrainsMono Nerd Font 10
+
+# Wayland-native daemons
+exec wl-paste --watch cliphist store
+exec mako
+exec nm-applet --indicator
+exec blueman-applet
+
+# Screen Lock (using swayidle and swaylock)
+exec swayidle -w \
+    timeout 300 'swaylock -i $walllock' \
+    before-sleep 'swaylock -i $walllock'
+
+
+### --- WINDOW RULES ---
+# Utilities (Handles both Wayland native app_id and legacy XWayland class)
+for_window [app_id="copyq"] floating enable, resize set 800 600, move position center
+for_window [class="copyq"] floating enable, resize set 800 600, move position center
+
+for_window [app_id="pavucontrol"] floating enable, resize set 800 600, move position center
+for_window [class="Pavucontrol"] floating enable, resize set 800 600, move position center
+
+for_window [app_id="blueman-manager"] floating enable, resize set 800 600, move position center
+for_window [class="Blueman-manager"] floating enable, resize set 800 600, move position center
+
+for_window [app_id="lxappearance"] floating enable, resize set 800 600, move position center
+for_window [class="Lxappearance"] floating enable, resize set 800 600, move position center
+
+for_window [app_id="org.gnome.Calculator"] floating enable, resize set 400 600, move position center
+for_window [class="gnome-calculator"] floating enable, resize set 400 600, move position center
+
+# Ardour / VST (Always runs through XWayland, so it strictly uses 'class')
+for_window [class="(?i)ardour" window_role="plugin_ui"] floating enable
+for_window [class="(?i)ardour" title=".*Plugin.*"] floating enable
+
+
+### --- KEYBINDINGS ---
+
+# 1. App Shortcuts
+bindsym $mod+p exec pavucontrol
+bindsym $mod+b exec blueman-manager
+bindsym $mod+Shift+e exec nautilus
+bindsym $mod+Shift+x exec swaylock -i $walllock
+
+# CopyQ GUI Binds
+bindsym $mod+v exec cliphist list | bemenu -p "Clipboard: " -l 10 | cliphist decode | wl-copy
+
+# 2. Hardware / Media Keys (--locked allows use while screen is locked)
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +3%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 3%-
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +3%
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -3%
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+# 3. Screenshot (Freeze screen, select area, copy to clipboard)
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+
+# 4. Core Environment
+floating_modifier $mod
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# 5. Layout & Splits
+bindsym $mod+c splith
+bindsym $mod+x splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+a focus parent
+
+# 6. Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# 7. Navigation
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# 8. Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# 9. System
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+p exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'
+
+### --- RESIZE MODE ---
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+
+### --- STATUS BAR ---
+bar {
+    swaybar_command waybar
+}
