@@ -1,9 +1,11 @@
-```bash
-ln -s ./alacritty ~/.config/alacritty
-ln -s ./nvim ~/.config/nvim
-ln -s ./tmux ~/.config/tmux
+> adjust the path based on your current setup
 
-# pick one
-ln -s ./i3 ~/.config/i3
-ln -s ./sway ~/.config/sway
+```bash
+ln -s "$PWD/alacritty" ~/.config/alacritty
+ln -s "$PWD/nvim" ~/.config/nvim
+ln -s "$PWD/tmux" ~/.config/tmux
+
+# wm, pick one
+ln -s "$PWD/i3" ~/.config/i3
+ln -s "$PWD/sway" ~/.config/sway
 ```
