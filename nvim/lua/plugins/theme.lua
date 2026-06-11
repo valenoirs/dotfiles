@@ -70,7 +70,17 @@ return {
 				typeStyle = {},
 				compile = false,
 				colors = {
-					palette = {}, -- override palette colors
+					palette = {
+						fg = "#121212", -- Keywords, statements (Deep midnight black)
+						silver = "#0B366B", -- Keywords, statements (Deep midnight black)
+						stone = "#1c1c1c", -- Functions (Dark charcoal)
+						slate = "#262626", -- Operators, parameters, preproc (Medium-dark charcoal)
+						ash = "#333333", -- Punctuation (Muted ash/stone)
+						sage = "#024c1a", -- String
+						diag_error = "#c82829",
+						diag_warn = "#C86509",
+						diag_info = "#4271ae",
+					}, -- override palette colors
 					theme = {}, -- override theme colors
 				},
 				overrides = function(colors)
