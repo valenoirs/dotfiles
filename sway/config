@@ -42,7 +42,8 @@ exec blueman-applet
 
 # Screen Lock (using swayidle and swaylock)
 exec swayidle -w \
-    timeout 300 'swaylock -i $walllock' \
+    timeout 1800 'swaylock -i $walllock' \
+    timeout 3600 'systemctl suspend' \
     before-sleep 'swaylock -i $walllock'
 
 
