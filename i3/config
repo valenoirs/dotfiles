@@ -47,6 +47,8 @@ for_window [class="gnome-calculator"] floating enable, resize set 400 600, move 
 # float Ardour plugin windows and dialogues
 for_window [class="(?i)ardour" window_role="plugin_ui"] floating enable
 for_window [class="(?i)ardour" title=".*Plugin.*"] floating enable
+# emulator
+for_window [class="Emulator"] floating enable
 
 # use mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
