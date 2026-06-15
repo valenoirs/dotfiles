@@ -23,6 +23,9 @@ return {
 				"gowork",
 				"gosum",
 				"make",
+				"tsx",
+				"javascript",
+				"html",
 			})
 
 			vim.api.nvim_create_autocmd("FileType", {
