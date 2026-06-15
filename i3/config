@@ -194,6 +194,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# class                 border  bground text    indicator child_border
+client.focused          #FFFFFF #FFFFFF #000000 #FFFFFF   #FFFFFF
+
 #### STATUS BAR
 bar {
         position top
