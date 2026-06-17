@@ -155,6 +155,11 @@ setgo() {
 
 export PATH="$PATH:$HOME/.local/share/yabridge"
 
+# Android SDK configuration
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 ### CUSTOM EXPORT ###
 # CUSTOM PATH
 export MODEL="qwen2.5-coder:3b"
@@ -162,8 +167,9 @@ export MODEL="qwen2.5-coder:3b"
 ### CUSTOM ALIAS ###
 # GO DEBUG with dlv
 alias gdb='dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient'
-
-# CUSTOM CD
+# Emulator
+alias emustart="emulator -avd Pixel_10 -no-boot-anim -skin 1080x1920"
+alias emulist="emulator -list-avds"
 # Workspace
 alias cds="cd ~/dev/mine/go/project/directory-platform && clear"
 alias cda="cd ~/dev/mine/go/project/four-eyes-principle && clear"
