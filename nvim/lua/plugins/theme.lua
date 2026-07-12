@@ -43,52 +43,59 @@ return {
 	--         require("onedark").load()
 	--     end,
 	-- },
-	-- {
-	-- 	"ellisonleao/gruvbox.nvim",
-	-- 	priority = 1000,
-	-- 	config = true,
-	-- 	init = function()
-	-- 		vim.o.background = "light"
-	-- 		vim.cmd("colorscheme gruvbox")
-	-- 	end,
-	-- },
 	{
-		"nendix/zen.nvim",
-		lazy = false,
+		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
+		config = true,
 		init = function()
-			require("zen").setup({
-				variant = "light", -- "dark", "light", or "auto" (follows vim.o.background)
-				undercurl = true,
-				transparent = true,
-				dimInactive = false,
-				terminalColors = true,
-				commentStyle = { italic = false },
-				functionStyle = {},
-				keywordStyle = { italic = false },
-				statementStyle = {},
-				typeStyle = {},
-				compile = false,
-				colors = {
-					palette = {
-						fg = "#121212", -- Keywords, statements (Deep midnight black)
-						silver = "#0B366B", -- Keywords, statements (Deep midnight black)
-						stone = "#1c1c1c", -- Functions (Dark charcoal)
-						slate = "#262626", -- Operators, parameters, preproc (Medium-dark charcoal)
-						ash = "#333333", -- Punctuation (Muted ash/stone)
-						sage = "#024c1a", -- String
-						diag_error = "#c82829",
-						diag_warn = "#C86509",
-						diag_info = "#4271ae",
-					}, -- override palette colors
-					theme = {}, -- override theme colors
+			require("gruvbox").setup({
+				bold = true,
+				italic = {
+					strings = false,
 				},
-				overrides = function(colors)
-					return {}
-				end,
 			})
 
-			vim.cmd.colorscheme("zen")
+			vim.o.background = "dark"
+			vim.cmd("colorscheme gruvbox")
 		end,
 	},
+	-- {
+	-- 	"nendix/zen.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	init = function()
+	-- 		require("zen").setup({
+	-- 			variant = "light", -- "dark", "light", or "auto" (follows vim.o.background)
+	-- 			undercurl = true,
+	-- 			transparent = true,
+	-- 			dimInactive = false,
+	-- 			terminalColors = true,
+	-- 			commentStyle = { italic = false },
+	-- 			functionStyle = {},
+	-- 			keywordStyle = { italic = false },
+	-- 			statementStyle = {},
+	-- 			typeStyle = {},
+	-- 			compile = false,
+	-- 			colors = {
+	-- 				palette = {
+	-- 					fg = "#121212", -- Keywords, statements (Deep midnight black)
+	-- 					silver = "#0B366B", -- Keywords, statements (Deep midnight black)
+	-- 					stone = "#1c1c1c", -- Functions (Dark charcoal)
+	-- 					slate = "#262626", -- Operators, parameters, preproc (Medium-dark charcoal)
+	-- 					ash = "#333333", -- Punctuation (Muted ash/stone)
+	-- 					sage = "#024c1a", -- String
+	-- 					diag_error = "#c82829",
+	-- 					diag_warn = "#C86509",
+	-- 					diag_info = "#4271ae",
+	-- 				}, -- override palette colors
+	-- 				theme = {}, -- override theme colors
+	-- 			},
+	-- 			overrides = function(colors)
+	-- 				return {}
+	-- 			end,
+	-- 		})
+	--
+	-- 		vim.cmd.colorscheme("zen")
+	-- 	end,
+	-- },
 }

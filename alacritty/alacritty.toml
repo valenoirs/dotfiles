@@ -1,21 +1,21 @@
 [general]
 import = [
     "./font.toml",
-    "./theme/gruvbox-light.toml"
+    "./theme/gruvbox-dark.toml"
 ]
 
 [window]
 # padding = { x = 8, y = 8 }
-opacity = 0.97
+# opacity = 0.97
 dynamic_title = true
 
 [selection]
 # save_to_clipboard = true
 
 [colors.primary]
-background = '#fbf1c7'
-foreground = '#3c3836'
+# background = '#fbf1c7'
+# foreground = '#3c3836'
 
 [colors.cursor]
-cursor = '#3c3836' # dark charcoal
-text = '#fbf1c7' # cream
+# cursor = '#3c3836' # dark charcoal
+# text = '#fbf1c7' # cream
