@@ -80,6 +80,15 @@ return {
 			vim.lsp.config("gopls", require("config.gopls"))
 			vim.lsp.enable("gopls")
 
+			-- Lua
+			vim.lsp.config("ts_ls", {
+				on_attach = function(client, bufnr)
+					client.server_capabilities.documentFormattingProvider = false
+					client.server_capabilities.documentRangeFormattingProvider = false
+				end,
+			})
+			vim.lsp.enable("ts_ls")
+
 			-- Postgres
 			vim.lsp.config("postgres_lsp", {})
 			vim.lsp.enable("postgres_lsp")
