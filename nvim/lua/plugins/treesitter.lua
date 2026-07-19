@@ -26,6 +26,8 @@ return {
 				"tsx",
 				"javascript",
 				"html",
+				"http",
+				"graphql",
 			})
 
 			vim.api.nvim_create_autocmd("FileType", {
