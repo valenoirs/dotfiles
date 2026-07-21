@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		vim.schedule(function()
 			vim.api.nvim_echo({
 				{
-					'Are you sure this decision is "Easy to Change" in the future? Think again. But, if you are so sure, then alright!',
+					'Are you sure this decision is "Easy to Change" in the future?',
 					"Question",
 				},
 			}, false, {})
