@@ -23,6 +23,13 @@ input "type:pointer" {
 }
 
 ### --- OUTPUT CONFIGURATION ---
+# Setup home desktop monitor position
+# 1. MSI QHD Monitor (Top, set to 75Hz)
+output DP-1 pos 0 0 res 2560x1440@75Hz
+
+# 2. Laptop Screen (Bottom, Centered)
+output eDP-1 pos 320 1440 res 1920x1080@60Hz
+
 # Set wallpaper (handled natively by swaybg in the background)
 output * bg $wallhome fill
 
@@ -121,6 +128,14 @@ bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
+
+# Focused Window to top/bottom monitor
+bindsym $mod+Alt+k move container to output up
+bindsym $mod+Alt+j move container to output down
+
+# Entire Workspace to top/bottom monitor
+bindsym $mod+Control+k move workspace to output up
+bindsym $mod+Control+j move workspace to output down
 
 # 8. Workspaces
 bindsym $mod+1 workspace number 1
