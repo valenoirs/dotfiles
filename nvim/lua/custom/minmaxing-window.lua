@@ -1,6 +1,6 @@
 local tab_state = {}
 
-function ToggleMaximize()
+local function toggle_maximize()
 	local tab = vim.api.nvim_get_current_tabpage()
 
 	tab_state[tab] = tab_state[tab] or { zoomed = false, layout = {} }
@@ -29,4 +29,4 @@ function ToggleMaximize()
 	end
 end
 
-vim.keymap.set("n", "<leader>z", ToggleMaximize, { noremap = true, silent = true, desc = "Toggle Maximize Window" })
+vim.keymap.set("n", "<leader>z", toggle_maximize, { noremap = true, silent = true, desc = "Toggle Maximize Window" })
