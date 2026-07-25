@@ -115,10 +115,11 @@ local function setup_jdtls()
 	}
 
 	local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+	local has_file_ops, file_ops = pcall(require, "lsp-file-operations")
+	local file_ops_capabilities = has_file_ops and file_ops.default_capabilities() or {}
 
-	for k, v in pairs(lsp_capabilities) do
-		capabilities[k] = v
-	end
+	-- Safely merge your base capabilities, autocomplete, and file operations together
+	capabilities = vim.tbl_deep_extend("force", capabilities, lsp_capabilities, file_ops_capabilities)
 
 	local extendedClientCapabilities = jdtls.extendedClientCapabilities
 	extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
