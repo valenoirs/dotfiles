@@ -24,18 +24,18 @@ input "type:pointer" {
 
 ### --- OUTPUT CONFIGURATION ---
 # Setup home desktop monitor position
-# 1. MSI QHD Monitor (Top, set to 75Hz)
-output DP-1 pos 0 0 res 2560x1440@75Hz
+# Laptop Screen (Bottom, Centered)
+output eDP-1 pos 0 360 res 1920x1080@60Hz
 
-# 2. Laptop Screen (Bottom, Centered)
-output eDP-1 pos 320 1440 res 1920x1080@60Hz
+# MSI QHD Monitor (Top, set to 75Hz)
+output DP-1 pos 1920 0 res 2560x1440@75Hz
 
 # Set wallpaper (handled natively by swaybg in the background)
 output * bg $wallhome fill
 
 ### --- EXECS & BACKGROUND SERVICES ---
 # Audio sink auto-switch
-exec_always pactl subscribe | grep --line-buffered "Event 'new' on sink" | while read; do pactl list short sinks | awk '/bluez_output/ {print $2}' | head -n1 | xargs -r pactl set-default-sink; done
+exec_always pactl subscribe | grep --line-buffered "Event 'new' on sink" | while read; do pactl list short sinks | awk '/DP-1|bluez_output/ {print $2}' | head -n1 | xargs -r pactl set-default-sink; done
 # Tell D-Bus and systemd we are running Sway (Fixes Waybar portal timeouts)
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
@@ -49,7 +49,7 @@ exec blueman-applet
 
 # Screen Lock (using swayidle and swaylock)
 exec swayidle -w \
-    timeout 300 'swaymsg "output * dpms off"' \
+    timeout 1500 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     timeout 1800 'swaylock -i $walllock' \
     before-sleep 'swaylock -i $walllock'
@@ -132,12 +132,12 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # Focused Window to top/bottom monitor
-bindsym $mod+Alt+k move container to output up
-bindsym $mod+Alt+j move container to output down
+bindsym $mod+Alt+h move container to output left
+bindsym $mod+Alt+l move container to output right
 
 # Entire Workspace to top/bottom monitor
-bindsym $mod+Control+k move workspace to output up
-bindsym $mod+Control+j move workspace to output down
+bindsym $mod+Control+h move workspace to output left
+bindsym $mod+Control+l move workspace to output right
 
 # 8. Workspaces
 bindsym $mod+1 workspace number 1
