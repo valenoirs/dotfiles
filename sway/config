@@ -89,10 +89,10 @@ bindsym $mod+Shift+x exec swaylock -i $walllock
 bindsym $mod+v exec cliphist list | bemenu -p "Clipboard: " -l 10 | cliphist decode | wl-copy
 
 # 2. Hardware / Media Keys (--locked allows use while screen is locked)
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set +3%
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 3%-
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +3%
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -3%
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
 bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
 bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
 
