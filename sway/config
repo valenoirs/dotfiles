@@ -52,7 +52,7 @@ exec swayidle -w \
     timeout 1500 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
     timeout 1800 'swaylock -i $walllock' \
-    before-sleep 'swaylock -i $walllock'
+    before-sleep 'swaylock -i $walllock -f'
 
 
 ### --- WINDOW RULES ---
@@ -168,10 +168,10 @@ bindsym $mod+Shift+p exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg e
 
 ### --- RESIZE MODE ---
 mode "resize" {
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym $left resize shrink width 50px
+    bindsym $down resize grow height 50px
+    bindsym $up resize shrink height 50px
+    bindsym $right resize grow width 50px
 
     # Return to default mode
     bindsym Return mode "default"
