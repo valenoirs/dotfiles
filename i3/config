@@ -2,14 +2,14 @@ set $mod Mod4
 
 # wallpaper variable
 set $wall-lock ~/wall-lock.png
-set $wall-home ~/wall-home.jpg
+set $wall-home ~/wall-home.webp
 
 #### SOME STARTUP THING
 # audio
 exec_always --no-startup-id pactl subscribe | grep --line-buffered "Event 'new' on sink" | while read; do pactl list short sinks | awk '/bluez_output/ {print $2}' | head -n1 | xargs -r pactl set-default-sink; done
 
-# set default display resolution at startup
-# exec --no-startup-id xrandr --output Virtual1 --mode 1920x1080
+# dual monitor setup: 2K on left, 1080p on right
+exec_always --no-startup-id ~/.config/i3/display.sh
 
 # compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
@@ -168,6 +168,23 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# dual monitor switching
+bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/display.sh
+
+# move the current WORKSPACE to the other output
+bindsym $mod+Ctrl+h move workspace to output left
+bindsym $mod+Ctrl+l move workspace to output right
+
+# cycle the container across outputs
+bindsym $mod+Ctrl+o move container to output next
+
+# cycle the workspace across outputs
+bindsym $mod+Ctrl+p move workspace to output next
+
+# move the currently focused WINDOW/CONTAINER to the other output
+bindsym $mod+Shift+Ctrl+h move container to output left
+bindsym $mod+Shift+Ctrl+l move container to output right
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
