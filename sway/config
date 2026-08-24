@@ -131,11 +131,17 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
-# Focused Window to top/bottom monitor
+# Focused Window to left/right monitor
 bindsym $mod+Alt+h move container to output left
 bindsym $mod+Alt+l move container to output right
 
-# Entire Workspace to top/bottom monitor
+# Cycle the container across outputs
+bindsym $mod+Ctrl+o move container to output next
+
+# Cycle the workspace across outputs
+bindsym $mod+Ctrl+p move workspace to output next
+
+# Entire Workspace to left/right monitor
 bindsym $mod+Control+h move workspace to output left
 bindsym $mod+Control+l move workspace to output right
 
