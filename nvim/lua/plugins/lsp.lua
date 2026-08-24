@@ -112,7 +112,9 @@ return {
 			"nvim-tree/nvim-tree.lua",
 		},
 		config = function()
-			require("lsp-file-operations").setup()
+			require("lsp-file-operations").setup({
+				timeout_ms = 3000,
+			})
 		end,
 	},
 }
