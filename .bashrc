@@ -123,16 +123,6 @@ bind '"\el": clear-screen'
 # PS1='\u@\h:\w\n$ '
 PS1='\[\e[32m\]\u@\h:\[\e[34m\]\w\n\[\e[32m\]\$ \[\e[0m\]'
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-alias fd=fdfind
-
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 # Golang Environment
 export GOROOT="$HOME/.go/current"
 export PATH="$GOROOT/bin:$PATH"
@@ -141,47 +131,60 @@ export PATH="$GOROOT/bin:$PATH"
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
-# # Mason bin
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
 # ln -s ~/.go/1.22.0 ~/.go/current
 
 setgo() {
+    if [ -z "$1" ]; then
+        echo "missing argument: setgo <value:1.26.0>"
+        return 1
+    fi
     rm -f ~/.go/current
     ln -s ~/.go/$1 ~/.go/current
     echo "Switched to Go $1"
     go version
 }
 
-export PATH="$PATH:$HOME/.local/share/yabridge"
+# Mason bin
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
-# Android SDK configuration
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# sdkmam
+export SDKMAN_DIR="/home/lucky/.sdkman"
+[[ -s "/home/lucky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/lucky/.sdkman/bin/sdkman-init.sh"
+
+# android sdk
 export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
 
-### CUSTOM EXPORT ###
-# CUSTOM PATH
-export MODEL="qwen2.5-coder:3b"
-
-### CUSTOM ALIAS ###
-# GO DEBUG with dlv
-alias gdb='dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient'
-# Emulator
-alias emustart="emulator -avd Pixel_10 -no-boot-anim -skin 1080x1920"
+emuside() {
+    swaymsg '[title="^Emulator"] move scratchpad' > /dev/null 2>&1
+}
+alias emu='QT_QPA_PLATFORM=xcb emulator -avd Expo_Device -gpu host -no-snapshot-save -skin 1080x1920'
 alias emulist="emulator -list-avds"
-# Workspace
-alias cds="cd ~/dev/mine/go/project/directory-platform && clear"
-alias cda="cd ~/dev/mine/go/project/four-eyes-principle && clear"
-alias cdw="cd ~/dev/mine/wy/wybe && clear"
-alias cdf="cd ~/dev/work/crm-backend-rbac && clear"
-# Vim
-alias vds="cd ~/dev/mine/go/project/directory-platform && clear && nvim ."
-alias vda="cd ~/dev/mine/go/project/four-eyes-principle && clear && nvim ."
-alias vdw="cd ~/dev/mine/wy/wybe && clear && nvim ."
-alias vdf="cd ~/dev/work/crm-backend-rbac && clear && nvim ."
-# Clone
-alias vc="sudo wg-quick up wg2"
-alias vd="sudo wg-quick down wg2"
-# Busy
-alias busy="node ~/dev/mine/sandbox/busy/app.js"
+alias emustart="emulator -avd Pixel_10 -no-boot-anim -skin 1080x1920"
+
+alias gdb='dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient'
+
+alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
+
+alias sshwy='ssh -i /home/lucky/dev/mine/whenyah/unlucky.pem ubuntu@43.134.228.189'
+alias fd=fdfind
+
+bri() {
+    if [ -z "$1" ]; then
+        echo "missing argument: bri <value:15>"
+        return 1
+    fi
+    sudo brightnessctl set $1%
+}
+
+export MODEL="qwen2.5-coder:3b"
+export PATH="/home/lucky/.local/bin:$PATH"
+
+
