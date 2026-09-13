@@ -1,0 +1,246 @@
+"" ============================================================================
+""                  IdeaVim Configuration (.ideavimrc)
+""       Ported from Neovim configuration for IntelliJ IDEA / JetBrains IDEs
+"" ============================================================================
+
+"" ----------------------------------------------------------------------------
+"" 1. Leader Keys
+"" ----------------------------------------------------------------------------
+let mapleader = " "
+let maplocalleader = " "
+
+"" ----------------------------------------------------------------------------
+"" 2. General Vim Options (Matching nvim/lua/config/options.lua)
+"" ----------------------------------------------------------------------------
+set number                      " Show line numbers
+set nowrap                      " Disable line wrap
+set scrolloff=20                " Vertical scroll offset
+set sidescrolloff=20            " Horizontal scroll offset
+
+" NOTE: expandtab, shiftwidth, tabstop, softtabstop, smartindent are NOT
+" supported by IdeaVim. Configure these in IntelliJ:
+"   Settings -> Editor -> Code Style -> <language>
+
+set clipboard+=unnamedplus,unnamed " Use system clipboard
+set noshowmode                  " Don't show mode in statusline
+" NOTE: splitbelow, splitright are NOT supported by IdeaVim.
+set cursorline                  " Highlight current line
+
+set hlsearch                    " Highlight search matches
+set incsearch                   " Incremental search
+set ignorecase                  " Ignore case in search
+set smartcase                   " Smart case search
+
+"" ----------------------------------------------------------------------------
+"" 3. IdeaVim-Specific Settings & Extensions
+"" ----------------------------------------------------------------------------
+set ideajoin                    " Join lines intelligently with IntelliJ code formatting
+set ideastatusicon=enabled      " Show IdeaVim status icon in IDE status bar
+set idearefactormode=keep       " Maintain Vim mode during IntelliJ refactorings
+
+" Emulated Plugins
+set surround                    " vim-surround emulation
+set multiple-cursors            " vim-visual-multi / multiple-cursors emulation
+set commentary                  " vim-commentary emulation (gcc, gc)
+set argtextobj                  " Argument text objects (cia, daa)
+set textobj-entire              " Entire buffer text objects (vae, dae, yae)
+set highlightedyank             " Briefly highlight yanked text
+set nerdtree                    " Emulate NERDTree for Project tool window
+set which-key                   " Which-Key popup emulation
+set notimeout                   " Required for responsive which-key display
+
+"" ----------------------------------------------------------------------------
+"" 4. Navigation & Training (Matching nvim/lua/config/keymaps.lua)
+"" ----------------------------------------------------------------------------
+" Clear search highlights
+nnoremap <Esc> :nohlsearch<CR>
+
+" Arrow keys training (remind to use hjkl)
+nnoremap <left>  :echo "Use h to move!"<CR>
+nnoremap <right> :echo "Use l to move!"<CR>
+nnoremap <up>    :echo "Use k to move!"<CR>
+nnoremap <down>  :echo "Use j to move!"<CR>
+
+" Visual mode re-selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Quick line-ending insertions
+nnoremap <leader>{ A {}<Esc>
+nnoremap <leader>; A;<Esc>
+
+"" ----------------------------------------------------------------------------
+"" 5. Window Splits & Navigation (Matching nvim/lua/config/keymaps.lua)
+"" ----------------------------------------------------------------------------
+" Splits
+nnoremap <leader>sv <Action>(SplitVertically)
+nnoremap <leader>sh <Action>(SplitHorizontally)
+nnoremap <leader>sV <Action>(SplitVertically)
+nnoremap <leader>sH <Action>(SplitHorizontally)
+
+" Window Navigation (Ctrl + hjkl)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <M-k> <Action>(ResizeToolWindowUp)
+nnoremap <M-j> <Action>(ResizeToolWindowDown)
+nnoremap <M-h> <Action>(ResizeToolWindowLeft)
+nnoremap <M-l> <Action>(ResizeToolWindowRight)
+
+" Toggle Maximize Window / Editor (Matching custom/minmaxing-window.lua <leader>z)
+nnoremap <leader>z <Action>(HideAllWindows)
+
+"" ----------------------------------------------------------------------------
+"" 6. Tabs & Buffers (Matching nvim/lua/config/keymaps.lua & bufferline.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>tn  <Action>(NewElement)
+nnoremap <leader>tc  <Action>(CloseContent)
+nnoremap <Tab>       <Action>(NextTab)
+nnoremap <S-Tab>     <Action>(PreviousTab)
+
+nnoremap <leader>bd  <Action>(CloseContent)
+nnoremap <leader>bD  <Action>(CloseContent)
+nnoremap <leader>bad <Action>(CloseAllEditors)
+nnoremap <leader>baD <Action>(CloseAllEditors)
+nnoremap <leader>bn  <Action>(NewScratchFile)
+
+"" ----------------------------------------------------------------------------
+"" 7. File Explorer (Matching nvim/lua/plugins/nvim-tree.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>e <Action>(ActivateProjectToolWindow)
+
+"" ----------------------------------------------------------------------------
+"" 8. Telescope / Fuzzy Finder (Matching nvim/lua/plugins/telescope.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>ff <Action>(GotoFile)
+nnoremap <leader>fF <Action>(GotoFile)
+nnoremap <leader>fg <Action>(FindInPath)
+nnoremap <leader>fG <Action>(FindInPath)
+nnoremap <leader>fd <Action>(ActivateProblemsViewToolWindow)
+nnoremap <leader>fD <Action>(ShowErrorDescription)
+nnoremap <leader>fr <Action>(RecentLocations)
+nnoremap <leader>f. <Action>(RecentFiles)
+nnoremap <leader>fb <Action>(RecentFiles)
+
+"" ----------------------------------------------------------------------------
+"" 9. Comments (Matching nvim/lua/plugins/comment.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>/ <Action>(CommentByLineComment)
+vnoremap <leader>/ <Action>(CommentByLineComment)
+
+"" ----------------------------------------------------------------------------
+"" 10. LSP / Code Navigation (Matching nvim/lua/plugins/lsp.lua)
+"" ----------------------------------------------------------------------------
+nnoremap grh <Action>(QuickJavaDoc)
+nnoremap grd <Action>(GotoDeclaration)
+nnoremap grD <Action>(GotoTypeDeclaration)
+nnoremap grR <Action>(RenameElement)
+nnoremap grn <Action>(RenameElement)
+
+nnoremap <leader>ga <Action>(ShowIntentionActions)
+vnoremap <leader>ga <Action>(ShowIntentionActions)
+nnoremap gra        <Action>(ShowIntentionActions)
+vnoremap gra        <Action>(ShowIntentionActions)
+
+nnoremap <leader>gr <Action>(ShowUsages)
+nnoremap grr        <Action>(ShowUsages)
+nnoremap <leader>gi <Action>(GotoImplementation)
+nnoremap gri        <Action>(GotoImplementation)
+nnoremap grt        <Action>(GotoTypeDeclaration)
+nnoremap gO         <Action>(FileStructurePopup)
+
+" Diagnostic navigation
+nnoremap [d <Action>(GotoPreviousError)
+nnoremap ]d <Action>(GotoNextError)
+
+" Sync / Reload project (Replaces :LspRestart / gG)
+nnoremap gG <Action>(Synchronize)
+
+" Code formatting (Matching nvim/lua/plugins/none-ls.lua <leader>fmt)
+nnoremap <leader>fmt <Action>(ReformatCode)
+vnoremap <leader>fmt <Action>(ReformatCode)
+
+"" ----------------------------------------------------------------------------
+"" 11. Debugging (DAP) (Matching nvim/lua/plugins/nvim-dap.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>dt <Action>(ToggleLineBreakpoint)
+nnoremap <leader>ds <Action>(Debug)
+nnoremap <leader>dc <Action>(Resume)
+nnoremap <leader>dq <Action>(Stop)
+nnoremap <leader>du <Action>(ActivateDebugToolWindow)
+nnoremap <leader>di <Action>(StepInto)
+nnoremap <leader>dn <Action>(StepOver)
+nnoremap <leader>do <Action>(StepOut)
+" NOTE: DropFrame != step_back. It discards the current frame and restarts from caller.
+nnoremap <leader>db <Action>(Debugger.DropFrame)
+nnoremap <leader>dw <Action>(Debugger.AddToWatch)
+nnoremap <leader>dr <Action>(Rerun)
+nnoremap <leader>de <Action>(EvaluateExpression)
+nnoremap <leader>d? <Action>(QuickEvaluateExpression)
+vnoremap <leader>d? <Action>(QuickEvaluateExpression)
+
+"" ----------------------------------------------------------------------------
+"" 12. Testing (Matching nvim/lua/plugins/neotest.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>tr <Action>(ContextRun)
+nnoremap <leader>td <Action>(ContextDebug)
+nnoremap <leader>tf <Action>(RunClass)
+nnoremap <leader>tp <Action>(Run)
+nnoremap <leader>tw <Action>(Run)
+nnoremap <leader>ts <Action>(ActivateRunToolWindow)
+nnoremap <leader>to <Action>(ActivateRunToolWindow)
+
+"" ----------------------------------------------------------------------------
+"" 13. Java Development & Spring Boot (Matching nvim/lua/config/jdtls.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>Jo <Action>(OptimizeImports)
+nnoremap <leader>Jv <Action>(IntroduceVariable)
+vnoremap <leader>Jv <Action>(IntroduceVariable)
+nnoremap <leader>JC <Action>(IntroduceConstant)
+vnoremap <leader>JC <Action>(IntroduceConstant)
+nnoremap <leader>Jt <Action>(ContextRun)
+vnoremap <leader>Jt <Action>(ContextRun)
+nnoremap <leader>JT <Action>(RunClass)
+nnoremap <leader>Ju <Action>(ExternalSystem.RefreshAllProjects)
+" NOTE: In nvim, <leader>Jr is java-creator record. Repurposed here for run config.
+nnoremap <leader>Jr <Action>(ChooseRunConfiguration)
+
+" Java file generation (Matching java-creator-nvim)
+nnoremap <leader>Jn <Action>(NewElement)
+nnoremap <leader>Jc <Action>(NewClass)
+nnoremap <leader>Ji <Action>(NewClass)
+nnoremap <leader>Je <Action>(NewClass)
+
+"" ----------------------------------------------------------------------------
+"" 14. Git (Matching nvim/lua/plugins/gitsigns.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>gb <Action>(Annotate)
+nnoremap <leader>gg <Action>(ActivateVersionControlToolWindow)
+nnoremap <leader>gc <Action>(CheckinProject)
+nnoremap <leader>gp <Action>(Vcs.Push)
+nnoremap [c         <Action>(VcsShowPrevChangeMarker)
+nnoremap ]c         <Action>(VcsShowNextChangeMarker)
+
+"" ----------------------------------------------------------------------------
+"" 15. Multiple Cursors (Matching nvim/lua/plugins/vim-visual-multi.lua)
+"" ----------------------------------------------------------------------------
+nmap <A-n>   <Action>(SelectNextOccurrence)
+xmap <A-n>   <Action>(SelectNextOccurrence)
+nmap <A-x>   <Action>(UnselectPreviousOccurrence)
+xmap <A-x>   <Action>(UnselectPreviousOccurrence)
+nmap <A-p>   <Action>(SelectPreviousOccurrence)
+xmap <A-p>   <Action>(SelectPreviousOccurrence)
+nmap <A-S-n> <Action>(SelectAllOccurrences)
+xmap <A-S-n> <Action>(SelectAllOccurrences)
+
+"" ----------------------------------------------------------------------------
+"" 16. HTTP Client (Matching nvim/lua/plugins/kulala.lua)
+"" ----------------------------------------------------------------------------
+nnoremap <leader>rr <Action>(ContextRun)
+
+"" ----------------------------------------------------------------------------
+"" 17. Reload IdeaVim Configuration
+"" ----------------------------------------------------------------------------
+nnoremap <leader>so :source ~/.ideavimrc<CR>
