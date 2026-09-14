@@ -24,11 +24,8 @@ input "type:pointer" {
 
 ### --- OUTPUT CONFIGURATION ---
 # Setup home desktop monitor position
-# Laptop Screen (Bottom, Centered)
-output eDP-1 pos 0 360 res 1920x1080@60Hz
-
-# MSI QHD Monitor (Top, set to 75Hz)
-output DP-1 pos 1920 0 res 2560x1440@75Hz
+output DP-1 pos 0 0 res 2560x1440@75Hz
+output eDP-1 pos 2560 360 res 1920x1080@60Hz
 
 # Set wallpaper (handled natively by swaybg in the background)
 output * bg $wallhome fill
@@ -53,7 +50,6 @@ exec swayidle -w \
     resume 'swaymsg "output * dpms on"' \
     timeout 1800 'swaylock -i $walllock' \
     before-sleep 'swaylock -i $walllock -f'
-
 
 ### --- WINDOW RULES ---
 # Utilities (Handles both Wayland native app_id and legacy XWayland class)
