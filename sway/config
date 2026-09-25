@@ -24,8 +24,13 @@ input "type:pointer" {
 
 ### --- OUTPUT CONFIGURATION ---
 # Setup home desktop monitor position
-output DP-1 pos 0 0 res 2560x1440@75Hz
-output eDP-1 pos 2560 360 res 1920x1080@60Hz
+# Uncomment one!
+##  Laptop on the Right
+# output DP-1 pos 0 0 res 2560x1440@75Hz
+# output eDP-1 pos 2560 360 res 1920x1080@60Hz
+## Laptop on the Left
+output eDP-1 pos 0 360 res 1920x1080@60Hz
+output DP-1 pos 1920 0 res 2560x1440@75Hz
 
 # Set wallpaper (handled natively by swaybg in the background)
 output * bg $wallhome fill
