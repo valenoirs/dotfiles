@@ -34,16 +34,16 @@ return {
 		tag = "v2.5.2",
 		config = function()
 			require("mason-nvim-dap").setup({
-				ensure_installed = { "java-debug-adapter", "java-test", "js-debug-adapter" },
+				ensure_installed = { "java-debug-adapter", "delve", "js-debug-adapter" },
 			})
 		end,
 	},
 	{
-		"WhoIsSethDaniel/mason-tool-installer",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		config = function()
 			require("mason-tool-installer").setup({
 				ensure_installed = {
-					"delve",
+					"java-test",
 					"eslint_d",
 					"gofumpt",
 					"goimports",
@@ -52,6 +52,7 @@ return {
 					"pgformatter",
 					"prettier",
 					"stylua",
+					"google-java-format",
 				},
 				auto_update = false,
 				run_on_start = true,
